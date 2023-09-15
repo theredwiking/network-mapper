@@ -8,7 +8,6 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	_ "github.com/theredwiking/network-mapper/cmd/structs"
 	"github.com/theredwiking/network-mapper/cmd/utils"
 )
 
@@ -20,12 +19,12 @@ var rootCmd = &cobra.Command{
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		network, err := utils.LocalIp()
+		info, err := utils.LocalIp()
 		if err != nil {
 			fmt.Println(nil)
 		}
-		fmt.Println(network.ip)
-		fmt.Println(network.subnet)
+		fmt.Println(info.Ip)
+		fmt.Println(info.Subnet)
 	},
 }
 

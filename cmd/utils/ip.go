@@ -5,9 +5,12 @@ import (
 	"net"
 	"strconv"
 	"strings"
-
-	_ "github.com/theredwiking/cmd/structs"
 )
+
+type Interface struct {
+	Ip     string
+	Subnet int
+}
 
 func LocalIp() (Interface, error) {
 	ifaces, err := net.Interfaces()
