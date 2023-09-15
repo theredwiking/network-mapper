@@ -3,14 +3,17 @@ package utils
 import (
 	"errors"
 	"net"
+	"strconv"
 	"strings"
+
+	_ "github.com/theredwiking/cmd/structs"
 )
 
-func LocalIp() (string, string, error) {
+func LocalIp() (Interface, error) {
 	ifaces, err := net.Interfaces()
 
 	if err != nil {
-		return "", "", err
+		return Interface{"", 0}, err
 	}
 
 	for _, iface := range ifaces {
@@ -21,12 +24,18 @@ func LocalIp() (string, string, error) {
 		addr, err := iface.Addrs()
 
 		if err != nil {
-			return "", "", err
+			return Interface{"", 0}, err
 		}
 
 		info := strings.Split(addr[0].String(), "/")
 
-		return info[0], info[1], nil
+		sub, err := strconv.Atoi(info[1])
+
+		if err != nil {
+			return Interface{"", 0}, err
+		}
+
+		return Interface{info[0], sub}, nil
 	}
-	return "", "", errors.New("are you even connected to a network?")
+	return Interface{"", 0}, errors.New("no network interface found matching requirements")
 }
