@@ -4,9 +4,11 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/theredwiking/network-mapper/cmd/utils"
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -16,7 +18,14 @@ var rootCmd = &cobra.Command{
 	Long:  `This tools is intended to be used to scan a network and discover that devices are connected.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+	Run: func(cmd *cobra.Command, args []string) {
+		ip, subnet, err := utils.LocalIp()
+		if err != nil {
+			fmt.Println(nil)
+		}
+		fmt.Println(ip)
+		fmt.Println(subnet)
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
