@@ -21,7 +21,7 @@ var rootCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		info, err := utils.LocalIp()
 		if err != nil {
-			fmt.Println(nil)
+			utils.HandleError(err)
 		}
 		fmt.Println(info.Ip)
 		fmt.Println(info.Subnet)
